@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Feedback</title>
+  <link rel="stylesheet" href="Interface.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Deixe seu Feedback</h1>
+    <form id="feedback-form">
+      <label for="rating">Nota (1-5):</label>
+      <select id="rating" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <textarea id="comment" placeholder="Escreva seu feedback..." required></textarea>
+      <button type="submit">Enviar Feedback</button>
+    </form>
+    <div id="feedback-list"></div>
+  </div>
+  <script src="RespostaExcluirEditar.js"></script>
+</body>
+</html>
