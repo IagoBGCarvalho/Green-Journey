@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenJourney Radio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2a2a2a;
+            color: #fff;
+            text-align: center;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .station {
+            margin: 1rem auto;
+            padding: 1.5rem;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+        }
+        .station h2 {
+            margin: 0.5rem 0;
+        }
+        footer {
+            background-color: #111;
+            padding: 1rem;
+            color: #fff;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GreenJourney Reggae </h1>
+    </header>
+    <main id="station-container">
+        <p>Carregando estação de reggae...</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 - GreenJourney</p>
+    </footer>
+    <script>
+        
+        const apiUrl = "https://de1.api.radio-browser.info/json/stations/search?name=0%20N%20-%20Reggae%20on%20Radio";
+
+        
+        const stationContainer = document.getElementById("station-container");
+
+        
+        async function loadStation() {
+            try {
+                const response = await fetch(apiUrl);
+                const stations = await response.json();
+
+                if (stations.length > 0) {
+                    const station = stations[0]; 
+
+                    stationContainer.innerHTML = `
+                        <div class="station">
+                            <h2>${station.name}</h2>
+                            <p><strong>País:</strong> ${station.country}</p>
+                            <p><strong>Bitrate:</strong> ${station.bitrate} kbps</p>
+                            <audio controls>
+                                <source src="${station.url_resolved}" type="audio/mpeg">
+                                Seu navegador não suporta o player de áudio.
+                            </audio>
+                        </div>
+                    `;
+                } else {
+                    stationContainer.innerHTML = "<p>Estação não encontrada.</p>";
+                }
+            } catch (error) {
+                stationContainer.innerHTML = "<p>Erro ao carregar a estação.</p>";
+                console.error("Erro ao buscar estação:", error);
+            }
+        }
+
+        
+        loadStation();
+    </script>
+</body>
+</html>

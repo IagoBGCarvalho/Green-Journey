@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenJourney modo Escuro</title>
+    <style>
+       
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        header {
+            text-align: center;
+            padding: 1rem;
+            background-color: #4CAF50;
+            color: white;
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .dark-mode button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+
+        
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .dark-mode header {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GreenJourney</h1>
+    </header>
+    <main>
+        
+        <button id="toggle-theme">Alternar para Modo Escuro</button>
+    </main>
+    <script>
+        
+        const button = document.getElementById('toggle-theme');
+        const body = document.body;
+
+        
+        button.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                button.textContent = 'Alternar para Modo Claro';
+            } else {
+                button.textContent = 'Alternar para Modo Escuro';
+            }
+        });
+    </script>
+</body>
+</html>
