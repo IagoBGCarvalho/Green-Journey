@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenJourney</title>
     <style>
-        /* Estilos globais */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -15,7 +14,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Cabeçalho */
         header {
             background-color: #4CAF50;
             color: white;
@@ -23,20 +21,12 @@
             padding: 1rem 0;
         }
 
-        /* Estilos principais */
         main {
             padding: 2rem;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Título principal */
-        h1 {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        /* Cartões das cepas */
         .cepa-card {
             background-color: white;
             border: 1px solid #ddd;
@@ -55,7 +45,6 @@
             margin: 0.5rem 0;
         }
 
-        /* Estilos do botão de alternância */
         button {
             padding: 0.5rem 1rem;
             border: none;
@@ -64,17 +53,6 @@
             font-size: 1rem;
         }
 
-        /* Modo escuro */
-        .dark-mode {
-            background-color: #121212;
-            color: #ffffff;
-        }
-
-        .dark-mode header {
-            background-color: #333;
-        }
-
-        /* Estilos do player de rádio */
         .station {
             margin: 1rem auto;
             padding: 1.5rem;
@@ -86,7 +64,7 @@
         }
 
         .station h2, .station p {
-            color: white; /* Garantir que o texto seja branco no modo escuro */
+            color: white;
         }
 
         footer {
@@ -97,7 +75,6 @@
             margin-top: 2rem;
         }
 
-        /* Responsividade */
         @media (max-width: 600px) {
             .station, .cepa-card {
                 max-width: 100%;
@@ -109,7 +86,15 @@
             }
         }
 
-        /* Ajuste de cor para o modo escuro */
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode header {
+            background-color: #333;
+        }
+
         .dark-mode .cepa-card, .dark-mode .station {
             background-color: #1e1e1e;
             color: white;
@@ -117,19 +102,6 @@
 
         .dark-mode footer {
             background-color: #222;
-        }
-
-        .dark-mode h1, .dark-mode h2, .dark-mode p {
-            color: white;
-        }
-
-        .dark-mode button {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .dark-mode button:hover {
-            opacity: 0.8;
         }
     </style>
 </head>
@@ -139,31 +111,12 @@
     </header>
     
     <main>
-        <div class="cepa-card">
-            <h2>Cepa A</h2>
-            <p><strong>Origem:</strong> Brasil</p>
-            <p><strong>Descrição:</strong> Cepa originária do Brasil com características tropicais.</p>
-        </div>
-        <div class="cepa-card">
-            <h2>Cepa B</h2>
-            <p><strong>Origem:</strong> África</p>
-            <p><strong>Descrição:</strong> Cepa conhecida por sua resistência e adaptabilidade.</p>
-        </div>
-        <div class="cepa-card">
-            <h2>Cepa C</h2>
-            <p><strong>Origem:</strong> Europa</p>
-            <p><strong>Descrição:</strong> Cepa predominante em regiões frias da Europa.</p>
-        </div>
-        <div class="cepa-card">
-            <h2>Cepa D</h2>
-            <p><strong>Origem:</strong> América do Norte</p>
-            <p><strong>Descrição:</strong> Cepa amplamente utilizada em pesquisas biológicas.</p>
-        </div>
-
-        <!-- Botão para alternar entre modos -->
         <button id="toggle-theme">Alternar para Modo Escuro</button>
 
-        <!-- Exibição da estação de rádio -->
+        <div id="cepas-container">
+            <p>Carregando informações das cepas...</p>
+        </div>
+
         <div id="station-container">
             <p>Carregando estação de reggae...</p>
         </div>
@@ -174,7 +127,6 @@
     </footer>
 
     <script>
-        // Alternar para o modo escuro
         const button = document.getElementById('toggle-theme');
         const body = document.body;
 
@@ -187,19 +139,46 @@
             }
         });
 
-        // URL da API da estação de rádio
-        const apiUrl = "https://de1.api.radio-browser.info/json/stations/search?name=0%20N%20-%20Reggae%20on%20Radio";
+        const cannabisApiUrl = "https://the-cannabis-api-endpoint-url/strains";
+
+        const cepasContainer = document.getElementById("cepas-container");
+
+        async function fetchCepas() {
+            try {
+                const response = await fetch(cannabisApiUrl);
+                const cepas = await response.json();
+
+                cepasContainer.innerHTML = "";
+
+                cepas.forEach(cepa => {
+                    const cepaCard = document.createElement("div");
+                    cepaCard.className = "cepa-card";
+                    cepaCard.innerHTML = `
+                        <h2>${cepa.name}</h2>
+                        <p><strong>Tipo:</strong> ${cepa.race}</p>
+                        <p><strong>Efeitos Positivos:</strong> ${cepa.effects.positive.join(", ")}</p>
+                        <p><strong>Efeitos Negativos:</strong> ${cepa.effects.negative.join(", ")}</p>
+                        <p><strong>Sabores:</strong> ${cepa.flavors.join(", ")}</p>
+                    `;
+                    cepasContainer.appendChild(cepaCard);
+                });
+            } catch (error) {
+                console.error("Erro ao buscar as cepas:", error);
+                cepasContainer.innerHTML = "<p>Erro ao carregar informações das cepas.</p>";
+            }
+        }
+
+        const radioApiUrl = "https://de1.api.radio-browser.info/json/stations/search?name=0%20N%20-%20Reggae%20on%20Radio";
 
         const stationContainer = document.getElementById("station-container");
 
-        // Função para carregar a estação "0 N - Reggae on Radio"
         async function loadStation() {
             try {
-                const response = await fetch(apiUrl);
+                const response = await fetch(radioApiUrl);
                 const stations = await response.json();
 
                 if (stations.length > 0) {
-                    const station = stations[0]; // Pega a primeira estação encontrada
+                    const station = stations[0]; 
 
                     stationContainer.innerHTML = `
                         <div class="station">
@@ -218,8 +197,8 @@
                 console.error("Erro ao buscar estação:", error);
             }
         }
-
-        // Carregar a estação ao abrir a página
+  
+        fetchCepas();
         loadStation();
     </script>
 </body>
