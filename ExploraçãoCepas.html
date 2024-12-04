@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenJourney</title>
+    <title>GreenJourney - Exploração de Cepas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,36 +11,44 @@
             padding: 0;
             background-color: #f4f4f9;
             color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
+
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
             padding: 1rem 0;
         }
-        main {
+
+       
+        #cepas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             padding: 2rem;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        h1 {
-            text-align: center;
-        }
+
         .cepa-card {
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 1.5rem;
-            margin: 1rem 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
         }
+
+        .cepa-card:hover {
+            transform: scale(1.05);
+        }
+
         .cepa-card h2 {
-            margin: 0 0 0.5rem 0;
+            margin-top: 0;
             color: #4CAF50;
         }
-        .cepa-card p {
-            margin: 0.5rem 0;
-        }
+
         footer {
             text-align: center;
             padding: 1rem 0;
@@ -52,32 +60,48 @@
 </head>
 <body>
     <header>
-        <h1>Exploração por Cepas</h1>
+        <h1>Exploração de Cepas - GreenJourney</h1>
     </header>
-    <main>
-        <div class="cepa-card">
-            <h2>Cepa A</h2>
-            <p><strong>Origem:</strong> Brasil</p>
-            <p><strong>Descrição:</strong> Cepa originária do Brasil com características tropicais.</p>
-        </div>
-        <div class="cepa-card">
-            <h2>Cepa B</h2>
-            <p><strong>Origem:</strong> África</p>
-            <p><strong>Descrição:</strong> Cepa conhecida por sua resistência e adaptabilidade.</p>
-        </div>
-        <div class="cepa-card">
-            <h2>Cepa C</h2>
-            <p><strong>Origem:</strong> Europa</p>
-            <p><strong>Descrição:</strong> Cepa predominante em regiões frias da Europa.</p>
-        </div>
-        <div class="cepa-card">
-            <h2>Cepa D</h2>
-            <p><strong>Origem:</strong> América do Norte</p>
-            <p><strong>Descrição:</strong> Cepa amplamente utilizada em pesquisas biológicas.</p>
-        </div>
+    <main id="cepas-container">
+        <p>Carregando informações...</p>
     </main>
     <footer>
         <p>&copy; 2024 - GreenJourney</p>
     </footer>
+    <script>
+        
+        const apiUrl = "https://the-cannabis-api-endpoint-url/strains";
+
+        const container = document.getElementById("cepas-container");
+
+        async function fetchCepas() {
+            try {
+                const response = await fetch(apiUrl);
+                const cepas = await response.json();
+
+                
+                container.innerHTML = "";
+
+                    cepas.forEach(cepa => {
+                    const cepaCard = document.createElement("div");
+                    cepaCard.className = "cepa-card";
+                    cepaCard.innerHTML = `
+                        <h2>${cepa.name}</h2>
+                        <p><strong>Tipo:</strong> ${cepa.race}</p>
+                        <p><strong>Efeitos Positivos:</strong> ${cepa.effects.positive.join(", ")}</p>
+                        <p><strong>Efeitos Negativos:</strong> ${cepa.effects.negative.join(", ")}</p>
+                        <p><strong>Sabores:</strong> ${cepa.flavors.join(", ")}</p>
+                    `;
+                    container.appendChild(cepaCard);
+                });
+            } catch (error) {
+                console.error("Erro ao buscar as cepas:", error);
+                container.innerHTML = "<p>Erro ao carregar informações das cepas.</p>";
+            }
+        }
+
+        
+        fetchCepas();
+    </script>
 </body>
 </html>
