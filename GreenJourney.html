@@ -13,20 +13,17 @@
             color: #333;
             transition: background-color 0.3s, color 0.3s;
         }
-
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
             padding: 1rem 0;
         }
-
         main {
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .cepa-card {
             background-color: white;
             border: 1px solid #ddd;
@@ -35,16 +32,13 @@
             margin: 1rem 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
         .cepa-card h2 {
             margin: 0 0 0.5rem 0;
             color: #4CAF50;
         }
-
         .cepa-card p {
             margin: 0.5rem 0;
         }
-
         button {
             padding: 0.5rem 1rem;
             border: none;
@@ -52,7 +46,6 @@
             cursor: pointer;
             font-size: 1rem;
         }
-
         .station {
             margin: 1rem auto;
             padding: 1.5rem;
@@ -62,11 +55,9 @@
             max-width: 600px;
             text-align: center;
         }
-
         .station h2, .station p {
             color: white;
         }
-
         footer {
             text-align: center;
             padding: 1rem 0;
@@ -74,7 +65,6 @@
             color: white;
             margin-top: 2rem;
         }
-
         @media (max-width: 600px) {
             .station, .cepa-card {
                 max-width: 100%;
@@ -85,21 +75,17 @@
                 padding: 1rem;
             }
         }
-
         .dark-mode {
             background-color: #121212;
             color: #ffffff;
         }
-
         .dark-mode header {
             background-color: #333;
         }
-
         .dark-mode .cepa-card, .dark-mode .station {
             background-color: #1e1e1e;
             color: white;
         }
-
         .dark-mode footer {
             background-color: #222;
         }
@@ -109,8 +95,7 @@
     <header>
         <h1>GreenJourney</h1>
     </header>
-    
-    <main>
+        <main>
         <button id="toggle-theme">Alternar para Modo Escuro</button>
 
         <div id="cepas-container">
@@ -121,15 +106,12 @@
             <p>Carregando estação de reggae...</p>
         </div>
     </main>
-
     <footer>
         <p>&copy; 2024 - GreenJourney</p>
     </footer>
-
     <script>
         const button = document.getElementById('toggle-theme');
         const body = document.body;
-
         button.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
@@ -138,18 +120,13 @@
                 button.textContent = 'Alternar para Modo Escuro';
             }
         });
-
         const cannabisApiUrl = "https://the-cannabis-api-endpoint-url/strains";
-
         const cepasContainer = document.getElementById("cepas-container");
-
         async function fetchCepas() {
             try {
                 const response = await fetch(cannabisApiUrl);
                 const cepas = await response.json();
-
                 cepasContainer.innerHTML = "";
-
                 cepas.forEach(cepa => {
                     const cepaCard = document.createElement("div");
                     cepaCard.className = "cepa-card";
@@ -167,19 +144,14 @@
                 cepasContainer.innerHTML = "<p>Erro ao carregar informações das cepas.</p>";
             }
         }
-
         const radioApiUrl = "https://de1.api.radio-browser.info/json/stations/search?name=0%20N%20-%20Reggae%20on%20Radio";
-
         const stationContainer = document.getElementById("station-container");
-
         async function loadStation() {
             try {
                 const response = await fetch(radioApiUrl);
                 const stations = await response.json();
-
                 if (stations.length > 0) {
                     const station = stations[0]; 
-
                     stationContainer.innerHTML = `
                         <div class="station">
                             <h2>${station.name}</h2>
@@ -197,7 +169,6 @@
                 console.error("Erro ao buscar estação:", error);
             }
         }
-  
         fetchCepas();
         loadStation();
     </script>
