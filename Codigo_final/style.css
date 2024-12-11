@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cepa-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cepa-card h2 {
+    margin: 0 0 0.5rem 0;
+    color: #4CAF50;
+}
+
+.cepa-card p {
+    margin: 0.5rem 0;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.station {
+    margin: 1rem auto;
+    padding: 1.5rem;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    text-align: center;
+}
+
+.station h2, .station p {
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #333;
+    color: white;
+    margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+    .station, .cepa-card {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+}
+
+/* Modo Escuro */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode header {
+    background-color: #333;
+}
+
+.dark-mode .cepa-card, .dark-mode .station {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.dark-mode footer {
+    background-color: #222;
+}
