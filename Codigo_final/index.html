@@ -1,32 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenJourney</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>GreenJourney - Wiki Cannabis</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <h1>GreenJourney</h1>
-    </header>
-    
-    <main>
-        <button id="toggle-theme">Alternar para Modo Escuro</button>
 
-        <div id="cepas-container">
-            <p>Carregando informações das cepas...</p>
+<body class="bg-light">
+    <!-- Overlay de carregamento inicial -->
+    <!-- <div id="loading-overlay" class="position-fixed w-100 h-100 bg-dark d-flex justify-content-center align-items-center" style="background: rgba(0,0,0,0.7); z-index: 9999; top: 0; left: 0;">
+        <div class="text-center text-white">
+            <div class="spinner-grow text-success mb-3" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <h4>Carregando GreenJourney</h4>
+            <p class="text-muted">Por favor, aguarde...</p>
+        </div>
+    </div> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="/Codigo_final/img/Journey-removebg-preview.png" alt="Icone">
+                GreenJourney
+            </a>
+            <!-- Indicador de carregamento na navbar -->
+            <div id="nav-loading" class="spinner-border spinner-border-sm text-light ms-auto" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card-body text-center">
+                    <img src="/Codigo_final/img/2-removebg-preview.png" alt="">
+
+                </div>
+                <div class="card bg-success text-white shadow-sm">
+                    <div class="card-body text-center">
+                        
+                        <h1 class="display-4">Bem-vindo à Wiki Cannabis</h1>
+                        <p class="lead">Explore nossa biblioteca completa de cepas e informações</p>
+                        <!-- Indicador de status -->
+                        <div id="status-indicator" class="badge bg-light text-success">
+                            <i class="fas fa-check-circle me-1"></i>
+                            Sistema atualizado
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="station-container">
-            <p>Carregando estação de reggae...</p>
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div class="input-group">
+                    <span class="input-group-text bg-success text-white">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input id="busca" class="form-control form-control-lg" placeholder="Busque por nome da cepa..."
+                        type="text">
+                </div>
+            </div>
+        </div>
+
+        <div id="cepas-container" class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="cepas-tb" class="table table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Imagem</th>
+                                <th scope="col">Cepa</th>
+                                <th scope="col">Banco de Semente</th>
+                                <th scope="col">Ancestralidade</th>
+                                <th scope="col">Linhagem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cepas-tb-body">
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Loading aprimorado -->
+                <div id="loading" class="text-center py-5">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="spinner-border text-success mb-3" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <h5 class="text-muted mb-2">Carregando informações das cepas</h5>
+                        <div class="progress w-50">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <small class="text-muted mt-2">Isso pode levar alguns segundos...</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="station-container" class="mt-4">
+            <div class="card bg-dark text-white shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-music me-2"></i>
+                    <span>Carregando estação de reggae...</span>
+                    <!-- Indicador de buffer de áudio -->
+                    <div class="progress bg-dark mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                            style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 - GreenJourney</p>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 - GreenJourney | Wiki Cannabis</p>
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    
+
 </body>
+
 </html>
