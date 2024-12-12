@@ -69,16 +69,54 @@ footer {
     margin-top: 2rem;
 }
 
-@media (max-width: 600px) {
-
-    .station,
-    .cepa-card {
+/* Responsividade */
+@media (max-width: 1200px) {
+    main {
         max-width: 100%;
         padding: 1rem;
     }
+}
+
+@media (max-width: 992px) {
+    .cepa-card, .station {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.5rem 0;
+    }
 
     main {
-        padding: 1rem;
+        padding: 0.5rem;
+    }
+
+    .cepa-card {
+        margin: 0.5rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    header {
+        font-size: 1.2rem;
+    }
+
+    main {
+        padding: 0.5rem;
+    }
+
+    .cepa-card, .station {
+        padding: 0.5rem;
+    }
+
+    button {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    footer {
+        padding: 0.5rem;
     }
 }
 
